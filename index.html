@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=320, maximum-scale=1.0, user-scalable=no">
+    <title>KATLA</title>
+    <style>
+      body {
+        text-align: center;
+        touch-action: none;
+      }
+
+      input[type=button] {
+        -webkit-appearance: none;
+        border: 0px;
+        height: 3em;
+        width: 2.5em;
+        margin: 0.08em;
+        text-align: center;
+        padding: 0em;
+      }
+
+      button {
+        -webkit-appearance: none;
+        border: 0px;
+        height: 3em;
+        margin: 0.08em;
+        text-align: center;
+      }
+
+      input[type=text] {
+        height: 3rem;
+        width: 3rem;
+        margin: 0.2rem;
+        padding: 0px;
+        font-size: 2em;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>KATLA</h1> <button onclick="barlu()">ACAK</button> <button onclick="belajlar()">BELAJAR</button>
+    <div id="kotlak" style="margin-top: 1.2em"></div>
+    <div id="hurluf" style="margin-top: 1.2em"></div>
+    
+    <script>
+      var kotlak = document.getElementById('kotlak')
+      var hurluf = document.getElementById('hurluf')
+
+      mulali()
+
+      function mulali() {
+        koslong()
+        paplan()
+        barlis = 0
+        klolom = 0
+        teblak = []
+      }
+
+      function koslong() {
+        kotlak.innerHTML = ''
+        for(var i = 0; i < 6; i++) {
+          kotlak.innerHTML += '<div>'
+          for(var j = 0; j < 5; j++) {
+            kotlak.innerHTML += '<input id="kotlak' + i + j + '" type="text" max-length="1" size="1" readonly>'
+          }
+          kotlak.innerHTML += '</div>'
+        }
+      }
+
+      function paplan() {
+        var qwe = 'qwertyuiop'
+        var asd = 'asdfghjkl'
+        var zxc = 'zxcvbnm'
+
+        hurluf.innerHTML = '<div>'
+        for(var i = 0; i < qwe.length; i ++) {
+          hurluf.innerHTML += '<input id="hurluf' + qwe[i] + '" type="button" onclick="inslet(this.value)" value="' + qwe[i].toUpperCase() + '"></input>'
+        }
+        hurluf.innerHTML += '</div>'
+
+        hurluf.innerHTML += '<div>'
+        for(var i = 0; i < asd.length; i ++) {
+          hurluf.innerHTML += '<input id="hurluf' + asd[i] + '" type="button" onclick="inslet(this.value)" value="' + asd[i].toUpperCase() + '"></input>'
+        }
+        hurluf.innerHTML += '</div>'
+
+        hurluf.innerHTML += '<div>'
+        hurluf.innerHTML += '<button onclick="chleck()">KIRIM</button>'
+        for(var i = 0; i < zxc.length; i ++) {
+          hurluf.innerHTML += '<input id="hurluf' + zxc[i] + '" type="button" onclick="inslet(this.value)" value="' + zxc[i].toUpperCase() + '"></input>'
+        }
+        hurluf.innerHTML += '<button onclick="haplus()">&#9003;</button>'
+        hurluf.innerHTML += '</div>'
+      }
+
+      var barlis = 0
+      var klolom = 0
+      function inslet(b) {
+        if (klolom === 5 || status === '22222') return
+        document.getElementById('kotlak' + barlis + klolom).value = b.toUpperCase()
+        if (teblak[barlis])
+          teblak[barlis] += b.toLowerCase()
+        else
+          teblak[barlis] = b.toLowerCase()
+        klolom++
+      }
+
+      function haplus() {
+        if (klolom === 0 || status === '22222') return
+        klolom--
+        document.getElementById('kotlak' + barlis + klolom).value = ''
+        teblak[barlis] = teblak[barlis].slice(0, -1)
+      }
+
+      var listKatla = []
+      var jawlab = ''
+      fetch('kata.json')
+        .then(
+          function(response) {
+            if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +
+                response.status);
+              return;
+            }
+
+            // Examine the text in the response
+            response.json().then(function(data) {
+              listKatla = data
+              barlu()
+            });
+          }
+        )
+        .catch(function(err) {
+          console.log('Fetch Error :-S', err);
+        });
+
+      var teblak = []
+      var status = ''
+      var sisa = ''
+      function chleck() {
+        if (teblak[barlis].length < 5) {
+          alert('Tebakannya kurang!')
+          return
+        }
+
+        if (listKatla.indexOf(teblak[barlis]) < 0) {
+          alert('Tidak ada di kamus!')
+          return
+        }
+
+        status = ''
+        sisa = ''
+        for(var i = 0; i < teblak[barlis].length; i++) {
+          if (jawlab[i] === teblak[barlis][i]) {
+            document.getElementById('kotlak' + barlis + i).style.background = 'seagreen'
+            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'seagreen'
+            status += '2'
+          }
+          else {
+            status += '0'
+            sisa += jawlab[i]
+          }
+        }
+
+        for(var i = 0; i < teblak[barlis].length; i++) {
+          if (status[i] === '2') {
+            continue
+          }
+          else if (sisa.includes(teblak[barlis][i])) {
+            document.getElementById('kotlak' + barlis + i).style.background = 'yellow'
+            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'yellow'
+            status[i] = '1'
+            sisa = sisa.replace(teblak[barlis][i], '')
+          }
+          else {
+            document.getElementById('kotlak' + barlis + i).style.background = 'grey'
+            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'grey'
+          }
+        }
+        klolom = 0
+        barlis++
+
+        if (status === '22222') {
+          alert('BAGUS!')
+          return
+        }
+
+        if (barlis > 5) {
+          alert(jawlab.toUpperCase())
+        }
+      }
+
+      function barlu() {
+        jawlab = listKatla[Math.floor(Math.random() * listKatla.length)]
+        mulali()
+      }
+
+      function belajlar() {
+        var p = prompt('Pilih Katla', listKatla[Math.floor(Math.random() * listKatla.length)]);
+        if (p) {
+          jawlab = p
+          mulali()
+        }
+      }
+    </script>
+  </body>
+</html>
