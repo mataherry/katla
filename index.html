@@ -166,8 +166,8 @@
         sisa = ''
         for(var i = 0; i < tebakan[baris].length; i++) {
           if (jawaban[i] === tebakan[baris][i]) {
-            document.getElementById('kotak' + baris + i).style.background = 'seagreen'
-            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'seagreen'
+            document.getElementById('kotak' + baris + i).style.background = 'darkseagreen'
+            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'darkseagreen'
             status += '2'
           }
           else {
@@ -181,15 +181,15 @@
             continue
           }
           else if (sisa.includes(tebakan[baris][i])) {
-            document.getElementById('kotak' + baris + i).style.background = 'yellow'
-            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'yellow'
+            document.getElementById('kotak' + baris + i).style.background = 'lightyellow'
+            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'lightyellow'
             status[i] = '1'
             sisa = sisa.replace(tebakan[baris][i], '')
           }
           else {
-            document.getElementById('kotak' + baris + i).style.background = 'grey'
+            document.getElementById('kotak' + baris + i).style.background = 'lightgrey'
             if(document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background === '')
-              document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'grey'
+              document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'lightgrey'
           }
         }
         kolom = 0
