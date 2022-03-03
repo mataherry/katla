@@ -158,7 +158,7 @@
         for(var i = 0; i < tebakan[baris].length; i++) {
           if (jawaban[i] === tebakan[baris][i]) {
             document.getElementById('kotak' + baris + i).style.background = 'seagreen'
-            document.getElementById('papan' + tebakan[baris][i]).style.background = 'seagreen'
+            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'seagreen'
             status += '2'
           }
           else {
@@ -173,14 +173,14 @@
           }
           else if (sisa.includes(tebakan[baris][i])) {
             document.getElementById('kotak' + baris + i).style.background = 'yellow'
-            document.getElementById('papan' + tebakan[baris][i]).style.background = 'yellow'
+            document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'yellow'
             status[i] = '1'
             sisa = sisa.replace(tebakan[baris][i], '')
           }
           else {
             document.getElementById('kotak' + baris + i).style.background = 'grey'
-            if(document.getElementById('papan' + tebakan[baris][i]).style.background === '')
-              document.getElementById('papan' + tebakan[baris][i]).style.background = 'grey'
+            if(document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background === '')
+              document.getElementById('papan' + tebakan[baris][i].toUpperCase()).style.background = 'grey'
           }
         }
         kolom = 0
