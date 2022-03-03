@@ -97,6 +97,7 @@
         for(var i = 0; i < asd.length; i ++) {
           papan.innerHTML += '<input id="papan' + asd[i] + '" type="button" onclick="inset(this.value)" value="' + asd[i] + '"></input>'
         }
+        papan.innerHTML += '<button onclick="cari()">&#128269;</button>'
         papan.innerHTML += '</div>'
 
         papan.innerHTML += '<div>'
@@ -216,6 +217,14 @@
           jawaban = p
           init()
         }
+      }
+      
+      function cari() {
+        if (baris < 1) {
+          alert('Silakan tebak dulu!')
+          return
+        }
+        window.open("https://kbbi.web.id/" + (baris > 5 ? jawaban : tebakan[baris - 1]), "_blank")
       }
     </script>
   </body>
