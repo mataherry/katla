@@ -43,83 +43,83 @@
           <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
       </svg>
     </a>
-    <button onclick="barlu()">ACAK</button> <button onclick="belajlar()">BELAJAR</button>
-    <div id="kotlak" style="margin-top: 1.2em"></div>
-    <div id="hurluf" style="margin-top: 1.2em"></div>
+    <button onclick="acak()">ACAK</button> <button onclick="belajar()">BELAJAR</button>
+    <div id="kotak" style="margin-top: 1.2em"></div>
+    <div id="papan" style="margin-top: 1.2em"></div>
     
     <script>
-      var kotlak = document.getElementById('kotlak')
-      var hurluf = document.getElementById('hurluf')
+      var kotak = document.getElementById('kotak')
+      var papan = document.getElementById('papan')
 
-      mulali()
+      init()
 
-      function mulali() {
-        koslong()
-        paplan()
-        barlis = 0
-        klolom = 0
-        teblak = []
+      function init() {
+        buatKotak()
+        buatPapan()
+        baris = 0
+        kolom = 0
+        tebakan = []
         status = ''
       }
 
-      function koslong() {
-        kotlak.innerHTML = ''
+      function buatKotak() {
+        kotak.innerHTML = ''
         for(var i = 0; i < 6; i++) {
-          kotlak.innerHTML += '<div>'
+          kotak.innerHTML += '<div>'
           for(var j = 0; j < 5; j++) {
-            kotlak.innerHTML += '<input id="kotlak' + i + j + '" type="text" max-length="1" size="1" readonly>'
+            kotak.innerHTML += '<input id="kotak' + i + j + '" type="text" max-length="1" size="1" readonly>'
           }
-          kotlak.innerHTML += '</div>'
+          kotak.innerHTML += '</div>'
         }
       }
 
-      function paplan() {
-        var qwe = 'qwertyuiop'
-        var asd = 'asdfghjkl'
-        var zxc = 'zxcvbnm'
+      function buatPapan() {
+        var qwe = 'QWERTYUIOP'
+        var asd = 'ASDFGHJKL'
+        var zxc = 'ZXCVBNM'
 
-        hurluf.innerHTML = '<div>'
+        papan.innerHTML = '<div>'
         for(var i = 0; i < qwe.length; i ++) {
-          hurluf.innerHTML += '<input id="hurluf' + qwe[i] + '" type="button" onclick="inslet(this.value)" value="' + qwe[i].toUpperCase() + '"></input>'
+          papan.innerHTML += '<input id="papan' + qwe[i] + '" type="button" onclick="inset(this.value)" value="' + qwe[i] + '"></input>'
         }
-        hurluf.innerHTML += '</div>'
+        papan.innerHTML += '</div>'
 
-        hurluf.innerHTML += '<div>'
+        papan.innerHTML += '<div>'
         for(var i = 0; i < asd.length; i ++) {
-          hurluf.innerHTML += '<input id="hurluf' + asd[i] + '" type="button" onclick="inslet(this.value)" value="' + asd[i].toUpperCase() + '"></input>'
+          papan.innerHTML += '<input id="papan' + asd[i] + '" type="button" onclick="inset(this.value)" value="' + asd[i] + '"></input>'
         }
-        hurluf.innerHTML += '</div>'
+        papan.innerHTML += '</div>'
 
-        hurluf.innerHTML += '<div>'
-        hurluf.innerHTML += '<button onclick="chleck()">KIRIM</button>'
+        papan.innerHTML += '<div>'
+        papan.innerHTML += '<button onclick="periksa()">KIRIM</button>'
         for(var i = 0; i < zxc.length; i ++) {
-          hurluf.innerHTML += '<input id="hurluf' + zxc[i] + '" type="button" onclick="inslet(this.value)" value="' + zxc[i].toUpperCase() + '"></input>'
+          papan.innerHTML += '<input id="papan' + zxc[i] + '" type="button" onclick="inset(this.value)" value="' + zxc[i] + '"></input>'
         }
-        hurluf.innerHTML += '<button onclick="haplus()">&#9003;</button>'
-        hurluf.innerHTML += '</div>'
+        papan.innerHTML += '<button onclick="hapus()">&#9003;</button>'
+        papan.innerHTML += '</div>'
       }
 
-      var barlis = 0
-      var klolom = 0
-      function inslet(b) {
-        if (klolom === 5 || status === '22222') return
-        document.getElementById('kotlak' + barlis + klolom).value = b.toUpperCase()
-        if (teblak[barlis])
-          teblak[barlis] += b.toLowerCase()
+      var baris = 0
+      var kolom = 0
+      function inset(b) {
+        if (kolom === 5 || status === '22222') return
+        document.getElementById('kotak' + baris + kolom).value = b.toUpperCase()
+        if (tebakan[baris])
+          tebakan[baris] += b.toLowerCase()
         else
-          teblak[barlis] = b.toLowerCase()
-        klolom++
+          tebakan[baris] = b.toLowerCase()
+        kolom++
       }
 
-      function haplus() {
-        if (klolom === 0 || status === '22222') return
-        klolom--
-        document.getElementById('kotlak' + barlis + klolom).value = ''
-        teblak[barlis] = teblak[barlis].slice(0, -1)
+      function hapus() {
+        if (kolom === 0 || status === '22222') return
+        kolom--
+        document.getElementById('kotak' + baris + kolom).value = ''
+        tebakan[baris] = tebakan[baris].slice(0, -1)
       }
 
       var listKatla = []
-      var jawlab = ''
+      var jawaban = ''
       fetch('kata.json')
         .then(
           function(response) {
@@ -129,10 +129,9 @@
               return;
             }
 
-            // Examine the text in the response
             response.json().then(function(data) {
               listKatla = data
-              barlu()
+              acak()
             });
           }
         )
@@ -140,73 +139,73 @@
           console.log('Fetch Error :-S', err);
         });
 
-      var teblak = []
+      var tebakan = []
       var status = ''
       var sisa = ''
-      function chleck() {
-        if (teblak[barlis].length < 5) {
+      function periksa() {
+        if (tebakan[baris].length < 5) {
           alert('Tebakannya kurang!')
           return
         }
 
-        if (listKatla.indexOf(teblak[barlis]) < 0) {
+        if (listKatla.indexOf(tebakan[baris]) < 0) {
           alert('Tidak ada di kamus!')
           return
         }
 
         status = ''
         sisa = ''
-        for(var i = 0; i < teblak[barlis].length; i++) {
-          if (jawlab[i] === teblak[barlis][i]) {
-            document.getElementById('kotlak' + barlis + i).style.background = 'seagreen'
-            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'seagreen'
+        for(var i = 0; i < tebakan[baris].length; i++) {
+          if (jawaban[i] === tebakan[baris][i]) {
+            document.getElementById('kotak' + baris + i).style.background = 'seagreen'
+            document.getElementById('papan' + tebakan[baris][i]).style.background = 'seagreen'
             status += '2'
           }
           else {
             status += '0'
-            sisa += jawlab[i]
+            sisa += jawaban[i]
           }
         }
 
-        for(var i = 0; i < teblak[barlis].length; i++) {
+        for(var i = 0; i < tebakan[baris].length; i++) {
           if (status[i] === '2') {
             continue
           }
-          else if (sisa.includes(teblak[barlis][i])) {
-            document.getElementById('kotlak' + barlis + i).style.background = 'yellow'
-            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'yellow'
+          else if (sisa.includes(tebakan[baris][i])) {
+            document.getElementById('kotak' + baris + i).style.background = 'yellow'
+            document.getElementById('papan' + tebakan[baris][i]).style.background = 'yellow'
             status[i] = '1'
-            sisa = sisa.replace(teblak[barlis][i], '')
+            sisa = sisa.replace(tebakan[baris][i], '')
           }
           else {
-            document.getElementById('kotlak' + barlis + i).style.background = 'grey'
-            if(document.getElementById('hurluf' + teblak[barlis][i]).style.background === '')
-              document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'grey'
+            document.getElementById('kotak' + baris + i).style.background = 'grey'
+            if(document.getElementById('papan' + tebakan[baris][i]).style.background === '')
+              document.getElementById('papan' + tebakan[baris][i]).style.background = 'grey'
           }
         }
-        klolom = 0
-        barlis++
+        kolom = 0
+        baris++
 
         if (status === '22222') {
           alert('BAGUS!')
           return
         }
 
-        if (barlis > 5) {
-          alert(jawlab.toUpperCase())
+        if (baris > 5) {
+          alert(jawaban.toUpperCase())
         }
       }
 
-      function barlu() {
-        jawlab = listKatla[Math.floor(Math.random() * listKatla.length)]
-        mulali()
+      function acak() {
+        jawaban = listKatla[Math.floor(Math.random() * listKatla.length)]
+        init()
       }
 
-      function belajlar() {
+      function belajar() {
         var p = prompt('Pilih Katla', listKatla[Math.floor(Math.random() * listKatla.length)]);
         if (p) {
-          jawlab = p
-          mulali()
+          jawaban = p
+          init()
         }
       }
     </script>
