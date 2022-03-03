@@ -1,6 +1,8 @@
 # katla
 Katla Bebas Minimalis
 
+https://katla.deno.dev/
+
 https://mataherry.github.io/katla/
 
 - Murni Javascript tanpa framework
