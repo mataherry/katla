@@ -180,7 +180,8 @@
           }
           else {
             document.getElementById('kotlak' + barlis + i).style.background = 'grey'
-            document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'grey'
+            if(document.getElementById('hurluf' + teblak[barlis][i]).style.background === '')
+              document.getElementById('hurluf' + teblak[barlis][i]).style.background = 'grey'
           }
         }
         klolom = 0
